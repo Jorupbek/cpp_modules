@@ -1,25 +1,22 @@
 #ifndef ANIMAL_HPP
-#define ANIMAL_HPP
-#include <iostream>
-#include "Brain.hpp"
+# define ANIMAL_HPP
+# include <iostream>
+# include <iomanip>
 
-class Animal {
-
+class Animal
+{
 protected:
 	std::string _type;
 
 public:
-	Animal();
-	Animal(Animal const &src);
-	Animal &operator=(const Animal &rhs);
-	virtual ~Animal();
+	Animal( void );
+	virtual ~Animal( void );
+	Animal( const Animal& toCopy );
+	Animal& operator=( const Animal& value );
 
+	virtual void makeSound() const = 0;
 	std::string getType() const;
-	void setType(const std::string &newType);
-
-	virtual void makeSound() const;
-	virtual Brain &getBrain() const = 0;
+	void setType( const std::string &value );
 };
-
 
 #endif

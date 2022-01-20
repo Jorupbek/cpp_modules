@@ -1,44 +1,65 @@
 #include "Character.hpp"
 
-Character::Character(std::string name) : _name(name) {
-	int i = 0;
-
-	while (i < MAX_M)
-		_m[i++] = NULL;
+Character::Character() : _current_materia(0) {
+	for (int i = 0; i < 4; i++)
+		this->_materias[i] = 0;
 }
 
-Character::Character(const Character &src) : _name(src._name) {
-	for (int i = 0; i < MAX_M; i++)
-		_m[i] = src._m[i];
+Character::Character( const std::string &name ) : _name(name), _current_materia(0) {
+	for (int i = 0; i < 4; i++)
+		this->_materias[i] = 0;
 }
 
-Character &Character::operator=(const Character &rhs) {
-	_name = rhs._name;
+Character::~Character() {
+	for (int i = 0; i < this->_current_materia; i++)
+		delete this->_materias[i];
+}
 
-	for (int i = 0; i < MAX_M; i++)
-		_m[i] = rhs._m[i];
+
+Character::Character( const Character& toCopy ) : _name(toCopy._name), _current_materia(toCopy._current_materia) {
+	for (int i = 0; i < this->_current_materia; i++)
+		this->_materias[i] = toCopy._materias[i]->clone();
+	for (int i = this->_current_materia; i < 4; i++)
+		this->_materias[i] = 0;
+}
+
+Character& Character::operator=( const Character& value ) {
+	if (this == &value)
+		return *this;
+	this->_name = value._name;
+	this->_current_materia = value._current_materia;
+	for (int i = 0; i < this->_current_materia; i++)
+		delete (this->_materias[i]);
+	for (int i = 0; i < _current_materia; i++)
+		this->_materias[i] = value._materias[i]->clone();
+	for (int i = this->_current_materia; i < 4; i++)
+		this->_materias[i] = 0;
 	return *this;
 }
 
-std::string const &Character::getName(void) const {
-	return _name;
+std::string const & Character::getName() const {
+	return this->_name;
 }
 
-void Character::equip(AMateria *m) {
-	int i = 0;
-
-	while (_m[i] != NULL && i < MAX_M)
-		i++;
-	if (i < MAX_M)
-		_m[i] = m;
+void Character::equip(AMateria* m) {
+	if (this->_current_materia == 4 || m == 0)
+		return;
+	this->_materias[_current_materia++] = m;
 }
 
 void Character::unequip(int idx) {
-	if (0 >= idx && idx < MAX_M)
-		_m[idx] = NULL;
+	if (idx < 0 || idx > this->_current_materia || this->_current_materia == 0)
+		return;
+	for (int i = idx; i < this->_current_materia; i++)
+	{
+		this->_materias[i] = this->_materias[i + 1];
+		this->_materias[i + 1] = 0;
+	}
+	this->_current_materia--;
 }
 
-void Character::use(int idx, ICharacter &target) {
-	if (idx >= 0 && idx < MAX_M && _m[idx])
-		_m[idx]->use(target);
+void Character::use(int idx, ICharacter& target) {
+	if (idx > 3 || idx < 0 || this->_materias[idx] == 0)
+		return;
+	this->_materias[idx]->use(target);
 }

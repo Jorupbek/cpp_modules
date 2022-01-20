@@ -1,26 +1,38 @@
+#include "Animal.hpp"
 #include "Cat.hpp"
 #include "Dog.hpp"
+#include "Brain.hpp"
 
-#define ANIMAL 4
+int	main(void) {
+	const Animal* zoo[4];
 
-int main()
-{
-	const Animal* tmp[10];
+	for (int i = 0; i < 2; i++)
+		zoo[i] = new Cat();
 
-	for (int i = 0; i < ANIMAL; i++)
-	{
-		if (i % 2)
-			tmp[i] = new Dog();
-		else
-			tmp[i] = new Cat();
+	std::cout << std::endl;
+	for (int i = 2; i < 4; i++)
+		zoo[i] = new Dog();
+
+	std::cout << std::endl;
+	Cat* cat = new Cat();
+
+	std::cout << std::endl;
+	for (int i = 0; i < 50; i++) {
+		cat->setIdea(("idea: " + std::to_string(i)));
+		std::cout << " " << cat->getIdea(i);
+		std::cout << ", ";
+		if (i % 10 == 0)
+			std::cout << std::endl;
 	}
-	std::cout  << std::endl;
 
-	for (int i = 0; i < ANIMAL; i++)
-		std::cout << "Idea: " << ((Cat*) tmp[i])->getBrain().getIdea(i) << std::endl;
-	std::cout  << std::endl;
+	std::cout << std::endl << std::endl;
+	delete cat;
 
-	for (int i = 0; i < ANIMAL; i++)
-		delete tmp[i];
+	std::cout << std::endl;
+	for (int i = 0; i < 4; i++) {
+		delete zoo[i];
+		std::cout << std::endl;
+	}
 
+	return 0;
 }

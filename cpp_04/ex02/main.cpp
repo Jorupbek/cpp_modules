@@ -1,26 +1,23 @@
+#include "Animal.hpp"
 #include "Cat.hpp"
 #include "Dog.hpp"
 
-#define ANIMAL 4
+int	main(void) {
+	const Animal* j = new Dog();
+	std::cout << std::endl;
+	const Animal* i = new Cat();
+	
+	std::cout << std::endl;
+	std::cout << j->getType() << " " << std::endl;
+	std::cout << i->getType() << " " << std::endl;
+	std::cout << std::endl;
 
-int main()
-{
-	const Animal* tmp[10];
+	j->makeSound();
+	std::cout << std::endl;
+	i->makeSound();
+	std::cout << std::endl;
 
-	for (int i = 0; i < ANIMAL; i++)
-	{
-		if (i % 2)
-			tmp[i] = new Dog();
-		else
-			tmp[i] = new Cat();
-	}
-	std::cout  << std::endl;
-
-	for (int i = 0; i < ANIMAL; i++)
-		std::cout << "Idea: " << tmp[i]->getBrain().getIdea(i) << std::endl;
-	std::cout  << std::endl;
-
-	for (int i = 0; i < ANIMAL; i++)
-		delete tmp[i];
-
+	delete j;
+	delete i;
+	return 0;
 }

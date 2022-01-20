@@ -1,21 +1,21 @@
 #ifndef CAT_HPP
-#define CAT_HPP
-#include "Animal.hpp"
-#include "Brain.hpp"
+# define CAT_HPP
 
-class Cat : public Animal {
+# include "Animal.hpp"
+# include "Brain.hpp"
+
+class Cat : public Animal, public Brain
+{
 private:
-	Brain *_brain;
+	Brain* _CatBrain;
 
 public:
-	Cat();
-	Cat(const Cat &src);
-	Cat &operator=(const Cat &rhs);
-	~Cat();
+	Cat( void );
+	virtual ~Cat( void );
+	Cat( const Cat& toCopy );
+	Cat& operator=( const Cat& value );
 
-	void makeSound() const;
-	Brain &getBrain() const;
-	void setBrain(const Brain &brain);
+	virtual void makeSound() const;
 };
 
 #endif

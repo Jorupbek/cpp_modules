@@ -1,15 +1,17 @@
 #ifndef CAT_HPP
-#define CAT_HPP
-#include "Animal.hpp"
+# define CAT_HPP
 
-class Cat : public Animal {
+# include "Animal.hpp"
 
+class Cat : public Animal
+{
 public:
-	Cat();
-	~Cat();
+	Cat( void );
+	~Cat( void );
+	Cat( const Cat& toCopy );
+	Cat& operator=( const Cat& value );
 
-	void makeSound() const;
-
+	virtual void makeSound() const;
 };
 
 #endif

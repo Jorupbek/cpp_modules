@@ -1,20 +1,29 @@
-CC = c++
-CPPFLAGS = -Wall -Wextra -Werror -std=c++98
+SRCS	=	$(wildcard *.cpp)
 
-NAME			= Ice
-SRCS 			= main.cpp AMateria.cpp Character.cpp Cure.cpp Ice.cpp MateriaSource.cpp
-OBJS			= $(SRCS:.cpp=.o)
+OBJS	=	$(SRCS:.cpp=.o)
 
-all:			$(NAME)
+NAME	=	materia
 
-$(NAME):$(SRCS)
-		$(CC) $(CPPFLAGS) $(SRCS) -o $(NAME)
+CC		=	clang++
+
+CFLAGS	=	-Wall -Wextra -Werror -std=c++98
+
+RM		=	rm -f
+
+all:		$(NAME)
+
+$(NAME):	$(OBJS)
+			$(CC) $(CFLAGS)  -o $@ $^
+
+%.o:		%.cpp AMateria.hpp Character.hpp Cure.hpp Ice.hpp ICharacter.hpp IMateriaSource.hpp MateriaSource.hpp
+			$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-		$(RM) $(NAME)
+			$(RM) $(OBJS)
 
-fclean: clean
+fclean:		clean
+			$(RM) $(NAME)
 
-re: fclean all
+re:			fclean all
 
-.PHONY:			all clean fclean re
+.PHONY:		all clean fclean re

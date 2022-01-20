@@ -1,15 +1,17 @@
-#ifndef MODULES_DOG_HPP
-#define MODULES_DOG_HPP
-#include "Animal.hpp"
+#ifndef DOG_HPP
+# define DOG_HPP
 
-class Dog : public Animal {
+# include "Animal.hpp"
 
+class Dog : public Animal
+{
 public:
-	Dog();
-	~Dog();
+	Dog( void );
+	~Dog( void );
+	Dog( const Dog& toCopy );
+	Dog& operator=( const Dog& value );
 
-	void makeSound() const;
-
+	virtual void makeSound() const;
 };
 
 #endif

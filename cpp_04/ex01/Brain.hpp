@@ -1,21 +1,22 @@
 #ifndef BRAIN_HPP
-#define BRAIN_HPP
-#include <iostream>
+# define BRAIN_HPP
 
-#define IDEAS 100
+# include <iostream>
 
-class Brain {
-private:
-	std::string _ideas[IDEAS];
+class Brain
+{
+protected:
+	std::string _ideas[100];
+	int _current_idea;
 
 public:
-	Brain();
-	Brain(Brain const &src);
-	Brain &operator=(const Brain &rhs);
-	~Brain();
+	Brain( void );
+	virtual ~Brain( void );
+	Brain( const Brain& toCopy );
+	Brain& operator=( const Brain& value );
 
-	std::string getIdea(int i) const;
+	void setIdea ( std::string const idea );
+	std::string getIdea ( int const num );
 };
-
 
 #endif

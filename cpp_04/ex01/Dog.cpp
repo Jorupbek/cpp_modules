@@ -1,36 +1,35 @@
 #include "Dog.hpp"
 
-Dog::Dog() : Animal() {
-	_type = "Dog";
-	_brain = new Brain;
-
-	std::cout << "+ Dog created with type: " << _type << std::endl;
+Dog::Dog( void ) : Animal() {
+	std::cout << "An instance of Dog class was born!" << std::endl;
+	this->_type = "Dog";
+	this->_DogBrain = new Brain();
 }
 
-Dog::Dog(const Dog &src)  : Animal(src) {
-	this->_brain = new Brain(*src._brain);
+Dog::~Dog( void ) {
+	if (!(this->_type.empty()))
+		std::cout << "An instance of Dog class is dead now!" << std::endl;
+	std::cout << "A " << _type << " of Dog class is dead now!" << std::endl;
+	delete _DogBrain;
 }
 
-Dog::~Dog() {
-	delete _brain;
-	std::cout<< "- Dog destroyed with type: " << _type << std::endl;
+Dog::Dog( const Dog& toCopy ) {
+	std::cout << "An instance was copied as an Dog class!" << std::endl;
+	delete _DogBrain;
+	this->_DogBrain = new Brain(*toCopy._DogBrain);
+	this->_type = toCopy._type;
 }
 
-void Dog::makeSound() const {
-	std::cout << "* Dog sound: " << "Gav-gav" << std::endl;
-}
-
-Dog &Dog::operator=(const Dog &rhs) {
-	delete this->_brain;
-	this->_brain = new Brain(*rhs._brain);
+Dog& Dog::operator=( const Dog& value ) {
+	if (this == &value)
+		return *this;
+	std::cout << "An instance was assignated as an Dog class!" << std::endl;
+	this->_DogBrain = new Brain(*value._DogBrain);
+	this->_type = value._type;
 	return *this;
 }
 
-Brain &Dog::getBrain() const {
-	return *_brain;
+void Dog::makeSound() const{
+	std::cout << "An instance of Dog class says \"Woof\"!" << std::endl;
 }
 
-void Dog::setBrain(const Brain &brain) {
-	delete this->_brain;
-	this->_brain = new Brain(brain);
-}

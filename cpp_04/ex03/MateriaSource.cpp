@@ -1,48 +1,50 @@
 #include "MateriaSource.hpp"
 
-MateriaSource::MateriaSource(void) {
-	int i = 0;
-	while (i < MAX_M)
-		_cope[i++] = NULL;
-}
-
-MateriaSource::MateriaSource(const MateriaSource &cope) {
-	int i = 0;
-	while (i < MAX_M) {
-		_cope[i] = cope._cope[i];
-		i++;
-	}
-}
-
-MateriaSource &MateriaSource::operator=(const MateriaSource &cope) {
-	int i = 0;
-	while (i < MAX_M) {
-		delete _cope[i];
-		_cope[i] = cope._cope[i]->clone();
-		i++;
-	}
-	return *this;
+MateriaSource::MateriaSource() : _current_materia(0) {
+	for (int i = 0; i < 4; i++)
+		this->_materias[i] = 0;
 }
 
 MateriaSource::~MateriaSource() {
-	int i = 0;
-	while (i < MAX_M)
-		delete _cope[i++];
+	for (int i = 0; i < _current_materia; i++)
+		delete (this->_materias[i]);
 }
 
-void MateriaSource::learnMateria(AMateria *cope) {
-	int i = 0;
-	while (_cope[i] != NULL && i < MAX_M)
-		i++;
-	if (i < MAX_M)
-		_cope[i] = cope;
+
+MateriaSource::MateriaSource(const MateriaSource& toCopy) : _current_materia(toCopy._current_materia) {
+	for (int i = 0; i < this->_current_materia; i++)
+		this->learnMateria(toCopy._materias[i]);
+	for (int i = this->_current_materia; i < 4; i++)
+		this->_materias[i] = 0;
 }
 
-AMateria *MateriaSource::createMateria(std::string const &type) {
-	int i = 0;
-	while (_cope[i]->getType() != type && i < MAX_M)
-		i++;
-	if (i < MAX_M)
-		return _cope[i]->clone();
-	return NULL;
+MateriaSource& MateriaSource::operator=(const MateriaSource& value) {
+	for (int i = 0; i < this->_current_materia; i++)
+		delete this->_materias[i];
+	this->_current_materia = value._current_materia;
+	for (int i = 0; i < this->_current_materia; i++)
+		this->learnMateria(value._materias[i]);
+	for (int i = this->_current_materia; i < 4; i++)
+		this->_materias[i] = 0;
+	return (*this);
+}
+
+AMateria* MateriaSource::createMateria(std::string const & type) {
+	for (int i = 0; i < this->_current_materia; i++)
+	{
+		if (this->_materias[i]->getType() == type)
+			return (this->_materias[i]->clone());
+	}
+	return (0);
+}
+
+void MateriaSource::learnMateria(AMateria* m) {
+	if (!m || this->_current_materia == 4)
+		return;
+	for (int i = 0; i > this->_current_materia; i++)
+	{
+		if (this->_materias[i] == m)
+			return;
+	}
+	this->_materias[this->_current_materia++] = m;
 }
