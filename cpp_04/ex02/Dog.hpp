@@ -1,8 +1,7 @@
 #ifndef DOG_HPP
-# define DOG_HPP
-
-# include "Animal.hpp"
-# include "Brain.hpp"
+#define DOG_HPP
+#include "Animal.hpp"
+#include "Brain.hpp"
 
 class Dog : public Animal, public Brain
 {
@@ -11,10 +10,7 @@ private:
 	
 public:
 	Dog( void );
-	Dog( std::string name );
 	virtual ~Dog( void );
-	Dog( const Dog& toCopy );
-	Dog& operator=( const Dog& value );
 
 	virtual void makeSound() const;
 };

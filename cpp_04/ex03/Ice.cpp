@@ -1,12 +1,8 @@
 #include "Ice.hpp"
 
-Ice::Ice() : AMateria("ice") {
+Ice::Ice() : AMateria("ice") {}
 
-}
-
-Ice::~Ice() {
-
-}
+Ice::~Ice() {}
 
 Ice::Ice(const Ice& toCopy) {
 	*this = toCopy;

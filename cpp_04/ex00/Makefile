@@ -1,29 +1,20 @@
-SRCS	=	$(wildcard *.cpp)
+CC = c++
+CPPFLAGS = -Wall -Wextra -Werror -std=c++98
 
-OBJS	=	$(SRCS:.cpp=.o)
+NAME			= Animal
+SRCS 			= main.cpp Animal.cpp Cat.cpp Dog.cpp WrongAnimal.cpp WrongCat.cpp
+OBJS			= $(SRCS:.cpp=.o)
 
-NAME	=	animal
+all:			$(NAME)
 
-CC		=	clang++
-
-CFLAGS	=	-Wall -Wextra -Werror -std=c++98
-
-RM		=	rm -f
-
-all:		$(NAME)
-
-$(NAME):	$(OBJS)
-			$(CC) $(CFLAGS)  -o $@ $^
-
-%.o:		%.cpp Animal.hpp Cat.hpp Dog.hpp WrongAnimal.hpp WrongCat.hpp
-			$(CC) $(CFLAGS) -c $< -o $@
+$(NAME):$(SRCS)
+		$(CC) $(CPPFLAGS) $(SRCS) -o $(NAME)
 
 clean:
-			$(RM) $(OBJS)
+		$(RM) $(NAME)
 
-fclean:		clean
-			$(RM) $(NAME)
+fclean: clean
 
-re:			fclean all
+re: fclean all
 
-.PHONY:		all clean fclean re
+.PHONY:			all clean fclean re

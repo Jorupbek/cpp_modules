@@ -11,8 +11,6 @@ protected:
 public:
 	Brain( void );
 	virtual ~Brain( void );
-	Brain( const Brain& toCopy );
-	Brain& operator=( const Brain& value );
 
 	void setIdea ( std::string const idea );
 	std::string getIdea ( int const num );

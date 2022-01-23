@@ -1,6 +1,5 @@
 #ifndef MATERIASOURCE_HPP
-# define MATERIASOURCE_HPP
-
+#define MATERIASOURCE_HPP
 #include "IMateriaSource.hpp"
 
 class MateriaSource : public IMateriaSource
@@ -12,6 +11,7 @@ private:
 public:
 	MateriaSource();
 	virtual ~MateriaSource();
+
 	MateriaSource(const MateriaSource& toCopy);
 	MateriaSource& operator=(const MateriaSource& value);
 

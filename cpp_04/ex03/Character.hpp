@@ -1,7 +1,6 @@
 #ifndef CHARACTER_HPP
-# define CHARACTER_HPP
-
-# include "ICharacter.hpp"
+#define CHARACTER_HPP
+#include "ICharacter.hpp"
 
 class Character : public ICharacter
 {
@@ -14,6 +13,7 @@ public:
 	Character();
 	virtual ~Character();
 	Character( const std::string &name );
+
 	Character( const Character& toCopy );
 	Character& operator=( const Character& value );
 
